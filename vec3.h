@@ -52,7 +52,6 @@ class vec3 {
 using point3 = vec3;
 using color = vec3;
 
-#endif 
 
 // vec3 Utility Functions
 
@@ -97,3 +96,5 @@ inline vec3 cross(const vec3 &u, const vec3 &v) {
 inline vec3 unit_vector(vec3 v) {
     return v / v.length();
 }
+
+#endif 
