@@ -10,6 +10,15 @@ color ray_color(const ray& r) {
     return (1.0-t)*color(1.0, 1.0, 1.0) + t*color(0.5, 0.7, 1.0);
 }
 
+bool hit_sphere(const point3& center, double radius, const ray& r) {
+    vec3 trans_start = r.origin() - center;
+    auto a = dot(r.direction(), r.direction());
+    auto b = 2.0 * dot(trans_start, r.direction());
+    auto c = dot(trans_start, trans_start) - radius*radius; 
+    auto discrim = b*b - 4*a*c;
+    return (discrim > 0);
+}
+
 
 int main() {
 
