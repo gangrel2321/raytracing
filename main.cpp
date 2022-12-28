@@ -4,12 +4,6 @@
 
 #include <iostream>
 
-color ray_color(const ray& r) {
-    vec3 unit_direction = unit_vector(r.direction());
-    auto t = 0.5*(unit_direction.y() + 1.0);
-    return (1.0-t)*color(1.0, 1.0, 1.0) + t*color(0.5, 0.7, 1.0);
-}
-
 bool hit_sphere(const point3& center, double radius, const ray& r) {
     vec3 trans_start = r.origin() - center;
     auto a = dot(r.direction(), r.direction());
@@ -17,6 +11,14 @@ bool hit_sphere(const point3& center, double radius, const ray& r) {
     auto c = dot(trans_start, trans_start) - radius*radius; 
     auto discrim = b*b - 4*a*c;
     return (discrim > 0);
+}
+
+color ray_color(const ray& r) {
+    if (hit_sphere(point3(0,0,-1), 0.5, r))
+        return color(1,0,0); //red
+    vec3 unit_direction = unit_vector(r.direction());
+    auto t = 0.5*(unit_direction.y() + 1.0);
+    return (1.0-t)*color(1.0, 1.0, 1.0) + t*color(0.5, 0.7, 1.0);
 }
 
 
