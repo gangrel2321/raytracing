@@ -7,18 +7,18 @@
 double hit_sphere(const point3& center, double radius, const ray& r) {
     // returns closest t value of hit if it hits or -1 if not
     vec3 og = r.origin() - center;
-    auto a = dot(r.direction(), r.direction());
-    auto b = 2.0 * dot(og, r.direction());
+    auto a = r.direction().length_squared();
+    auto b = dot(og, r.direction());
     auto c = dot(og, og) - radius*radius; 
-    auto discrim = b*b - 4*a*c;
+    auto discrim = b*b - a*c;
     if (discrim < 0) {
         return -1.0;
     }
     else {
-        return (-b - sqrt(discrim)) / (2.0*a);
+        return (-b - sqrt(discrim)) / a;
     }
 }
-
+  
 color ray_color(const ray& r) {
     point3 center{0,0,-1};
     auto t = hit_sphere(center, 0.5, r);
