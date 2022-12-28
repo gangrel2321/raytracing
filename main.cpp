@@ -4,12 +4,12 @@
 
 #include <iostream>
 
-bool hit_sphere(const point3& center, double radius, const ray& r) {
+double hit_sphere(const point3& center, double radius, const ray& r) {
     // returns closest t value of hit if it hits or -1 if not
-    vec3 trans_start = r.origin() - center;
+    vec3 og = r.origin() - center;
     auto a = dot(r.direction(), r.direction());
-    auto b = 2.0 * dot(trans_start, r.direction());
-    auto c = dot(trans_start, trans_start) - radius*radius; 
+    auto b = 2.0 * dot(og, r.direction());
+    auto c = dot(og, og) - radius*radius; 
     auto discrim = b*b - 4*a*c;
     if (discrim < 0) {
         return -1.0;
@@ -26,6 +26,7 @@ color ray_color(const ray& r) {
         vec3 normal = unit_vector(r.at(t) - center);
         return 0.5*color(normal.x()+1, normal.y()+1, normal.z()+1);
     }
+    //std::cout << "MISSED!" << std::endl;
     vec3 unit_direction = unit_vector(r.direction());
     t = 0.5*(unit_direction.y() + 1.0);
     return (1.0-t)*color(1.0, 1.0, 1.0) + t*color(0.5, 0.7, 1.0);
