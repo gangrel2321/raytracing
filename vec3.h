@@ -45,6 +45,15 @@ class vec3 {
             return e[0]*e[0] + e[1]*e[1] + e[2]*e[2];
         }
 
+        static vec3 random_vec() {
+            return vec3(random_uniform(), random_uniform(), random_uniform());
+        }
+
+        static vec3 random_vec(double min, double max) {
+            return vec3(random_uniform(min,max), random_uniform(min,max), random_uniform(min,max));
+        }
+
+
     public:
         double e[3];
 };
@@ -96,5 +105,20 @@ inline vec3 cross(const vec3 &u, const vec3 &v) {
 inline vec3 unit_vector(vec3 v) {
     return v / v.length();
 }
+
+static vec3 random_normal_vec() {
+    return vec3{random_normal(), random_normal(), random_normal()};
+}
+
+static vec3 random_uniform_sphere_surface() {
+    // rewrite to project off of cylinder samples..
+    vec3 X = random_normal_vec();
+    return X / X.length();
+}
+
+static vec3 random_uniform_sphere() { 
+    return std::cbrt(random_uniform()) * random_uniform_sphere_surface();
+}
+
 
 #endif 

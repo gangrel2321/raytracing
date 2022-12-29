@@ -27,13 +27,19 @@ double clamp(double x, double min, double max) {
     return x < min ? min : x > max ? max : x;
 }
 
-double random_double() {
+double random_uniform() {
     static std::uniform_real_distribution<double> distribution(0.0, 1.0);
     static std::mt19937 generator;
     return distribution(generator);
 }
-double random_double(double min, double max) {
-    return random_double()*(max - min) + min;
+double random_uniform(double min, double max) {
+    return random_uniform()*(max - min) + min;
+}
+
+double random_normal() {
+    static std::normal_distribution<double> distribution(0.0, 1.0);
+    static std::mt19937 generator;
+    return distribution(generator);
 }
 
 // Headers
